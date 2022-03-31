@@ -23,5 +23,6 @@ public class Main {
             somaMultiplicacao += segundoValor;
         }
         System.out.println("O resultado da multiplicação é "+ somaMultiplicacao);
+        leitor.close();
     }
 }
