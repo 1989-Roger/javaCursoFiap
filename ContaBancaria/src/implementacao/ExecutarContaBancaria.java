@@ -1,44 +1,33 @@
 package implementacao;
 
 import beans.ContaBancaria;
-
-import java.util.Scanner;
+import util.EntradaDados;
 
 public class ExecutarContaBancaria {
     public static void main(String[] args) {
 
-        Scanner leitor = new Scanner(System.in);
         char operacao;
-        String desejaSair = "";
-        ContaBancaria conta = new ContaBancaria();
-        System.out.println("Digite o número da conta corrente");
-        conta.setNumeroDaConta(leitor.nextInt());
-        leitor.nextLine();
-        System.out.println("Digite o saldo da conta");
-        conta.setSaldo(leitor.nextDouble());
-        leitor.nextLine();
-
+        Boolean desejaSair = false;
+        ContaBancaria conta = new ContaBancaria(
+                EntradaDados.inteiro("Digite o número da conta corrente"),
+                EntradaDados.valor("Digite o saldo da conta"),
+                EntradaDados.texto("Digite o nome do cliente"),
+                EntradaDados.logico("O tipo de conta é corrente ? Clique não para conta poupança")
+                );
+        conta.definirLimite( EntradaDados.valor("Digite o valor para limite da conta"));
         do {
-            System.out.println("Qual operação deseja realizar? Digite D para depósito e S para saque");
-            operacao = Character.toUpperCase(leitor.nextLine().charAt(0));
+            operacao = EntradaDados.caracter("Qual operação deseja realizar? " +
+                    "Digite D para depósito e S para saque");
             if (operacao == 'S') {
-                System.out.println("Digite a quantia para saque...");
-                conta.saque(leitor.nextDouble());
+                conta.saque(EntradaDados.valor("Digite o valor para saque"));
             } else if (operacao == 'D') {
-                System.out.println("Digite a quantia para o deposito...");
-                conta.deposito(leitor.nextDouble());
+                conta.saque(EntradaDados.valor("Digite a quantia para o deposito..."));
             } else {
-                System.out.println("Opção inválida !!! ");
+                EntradaDados.show("Opção inválida !!! ");
             }
-            leitor.nextLine();
-            System.out.println("Digite sair para sair ou digite outra coisa para continuar");
-            desejaSair = leitor.nextLine();
-
-        } while (!desejaSair.equalsIgnoreCase("sair"));
-        System.out.println("Processo finalizado ....");
-
-        leitor.close();
-
+            desejaSair = EntradaDados.logico("Deseja sair ?");
+        } while (!desejaSair);
+        EntradaDados.show("Processo finalizado ....");
     }
 
 }
