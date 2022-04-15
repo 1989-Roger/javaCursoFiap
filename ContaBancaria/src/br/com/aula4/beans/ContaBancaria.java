@@ -1,30 +1,52 @@
-package beans;
+package br.com.aula4.beans;
 
-import util.EntradaDados;
+import br.com.aula4.util.EntradaDados;
+
+import java.util.Optional;
 
 public class ContaBancaria {
+    private Agencia banco;
     private int numeroDaConta;
     private double saldo;
-    private String cliente;
+    private Cliente cliente;
     private Double limiteEspecial = 0d;
     private boolean tipoDeConta;
 
+    public Agencia getBanco() {
+        return banco;
+    }
+
+    public void setBanco(Agencia banco) {
+        this.banco = banco;
+    }
+
     public ContaBancaria(){
     }
-    public ContaBancaria(int numeroDaConta, double saldo, String cliente, boolean tipoDeConta) {
+    public ContaBancaria( int numeroDaConta, double saldo, Cliente cliente, boolean tipoDeConta) {
         this.numeroDaConta = numeroDaConta;
         this.saldo = saldo;
         this.cliente = cliente;
-       // this.limiteEspecial = limiteEspecial;
+        this.banco = banco;
+        this.tipoDeConta = tipoDeConta;
+    }
+    public ContaBancaria(Agencia banco, int numeroDaConta, double saldo, Cliente cliente, boolean tipoDeConta) {
+        this.numeroDaConta = numeroDaConta;
+        this.saldo = saldo;
+        this.cliente = cliente;
+        this.banco = banco;
         this.tipoDeConta = tipoDeConta;
     }
 
-    public String getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(String cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public boolean isTipoDeConta() {
+        return tipoDeConta;
     }
 
     public Double getLimiteEspecial() {
@@ -90,13 +112,31 @@ public class ContaBancaria {
         }
     }
 
+    public Optional banco(){
+        return Optional.empty();
+    }
     public String extratoRetorno() {
-        return "ContaBancaria{" +
-                "numeroDaConta=" + numeroDaConta +
-                ", saldo=R$ " + String.format("%.2f",saldo) +
-                ", cliente='" + cliente + '\'' +
-                ", limiteEspecial= R$ " + String.format("%.2f",limiteEspecial) +
-                ", tipoDeConta=" + tipoDeConta +
-                '}';
+        if(banco != null){
+            return "ContaBancaria{" +
+                    " banco='" + banco.toString() + '\'' +
+                    ",numeroDaConta=" + numeroDaConta +
+                    ", saldo=R$ " + String.format("%.2f",saldo) +
+                    ", cliente='" + cliente.toString() + '\'' +
+                    ", limiteEspecial= R$ " + String.format("%.2f",limiteEspecial) +
+                    ", tipoDeConta=" + tipoDeConta +
+                    '}';
+        }else{
+            return "ContaBancaria{" +
+                    "numeroDaConta=" + numeroDaConta +
+                    ", saldo=R$ " + String.format("%.2f",saldo) +
+                    ", cliente='" + cliente.toString() + '\'' +
+                    ", limiteEspecial= R$ " + String.format("%.2f",limiteEspecial) +
+                    ", tipoDeConta=" + tipoDeConta +
+                    '}';
+        }
+
+    }
+    public void mensagemBoasvindas(){
+
     }
 }

@@ -1,4 +1,4 @@
-package util;
+package br.com.aula4.util;
 
 import javax.swing.*;
 
