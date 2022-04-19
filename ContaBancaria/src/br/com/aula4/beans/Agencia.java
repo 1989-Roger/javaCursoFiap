@@ -2,7 +2,7 @@ package br.com.aula4.beans;
 
 import java.util.Optional;
 
-public class Agencia {
+public  class Agencia {
 
     private String razaoSocial;
     private int idBancario;
