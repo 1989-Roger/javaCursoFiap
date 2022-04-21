@@ -77,9 +77,9 @@ public class ExecutarContaBancaria {
                 0,
                 EntradaDados.valor("Digite a taxa da conta corrente")
         );
-        System.out.println(contaCorrente.toString());
+        System.out.println(contaCorrente.extratoRetorno());
         contaCorrente.definirLimite(EntradaDados.valor("Digite o limite da conta corrente"));
-        System.out.println(contaCorrente.toString());
+        System.out.println(contaCorrente.extratoRetorno());
         do {
             operacao = EntradaDados.caracter("Qual operação deseja realizar? " +
                     "Digite D para depósito e S para saque");
@@ -105,9 +105,9 @@ public class ExecutarContaBancaria {
                 EntradaDados.valor("Digite o saldo da conta"),
                 cliente,
                 EntradaDados.valor("Digite o rendimento da poupança..."));
-        System.out.println(contaPoupanca.toString());
+        System.out.println(contaPoupanca.extratoRetorno());
         contaPoupanca.creditarRendimento();
-        System.out.println(contaPoupanca.toString());
+        System.out.println(contaPoupanca.extratoRetorno());
 
         do {
             operacao = EntradaDados.caracter("Qual operação deseja realizar? " +

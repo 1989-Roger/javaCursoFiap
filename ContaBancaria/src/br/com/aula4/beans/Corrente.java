@@ -33,7 +33,7 @@ public class Corrente extends ContaBancaria{
     }
 
     @Override
-    public String toString() {
+    public String extratoRetorno() {
         return super.extratoRetorno() +"Corrente{" +
                 "limite=" + limite +
                 ", taxa=" + taxa +
