@@ -5,7 +5,7 @@ import br.com.aula4.excecoes.ControleExcecoes;
 import br.com.aula4.util.EntradaDados;
 
 public class ExecutarContaBancaria {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ControleExcecoes {
 /*
         Agencia banco = new Agencia(EntradaDados.texto("Digite o banco do cliente"),
                 EntradaDados.inteiro("Digite o id do banco")
