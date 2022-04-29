@@ -1,6 +1,7 @@
 package br.com.aula4.implementacao;
 
 import br.com.aula4.beans.*;
+import br.com.aula4.excecoes.ControleExcecoes;
 import br.com.aula4.util.EntradaDados;
 
 public class ExecutarContaBancaria {
@@ -94,7 +95,7 @@ public class ExecutarContaBancaria {
         } while (!desejaSair);
     }
 
-    public static void ContaPoupanca() {
+    public static void ContaPoupanca() throws ControleExcecoes {
         char operacao;
         Boolean desejaSair = false;
         Agencia banco = new Agencia("Itau", 341);

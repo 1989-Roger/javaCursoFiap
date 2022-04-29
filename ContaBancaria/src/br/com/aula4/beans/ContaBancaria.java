@@ -1,7 +1,9 @@
 package br.com.aula4.beans;
 
+import br.com.aula4.excecoes.ControleExcecoes;
 import br.com.aula4.util.EntradaDados;
 
+import javax.swing.*;
 import java.util.Optional;
 
 public abstract class ContaBancaria {
@@ -18,14 +20,16 @@ public abstract class ContaBancaria {
         this.banco = banco;
     }
 
-    public ContaBancaria(){
+    public ContaBancaria() {
     }
-    public ContaBancaria( int numeroDaConta, double saldo, Cliente cliente) {
+
+    public ContaBancaria(int numeroDaConta, double saldo, Cliente cliente) {
         this.numeroDaConta = numeroDaConta;
         this.saldo = saldo;
         this.cliente = cliente;
         this.banco = banco;
     }
+
     public ContaBancaria(Agencia banco, int numeroDaConta, double saldo, Cliente cliente) {
         this.numeroDaConta = numeroDaConta;
         this.saldo = saldo;
@@ -40,8 +44,6 @@ public abstract class ContaBancaria {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-
-
 
 
     public Integer getNumeroDaConta() {
@@ -61,38 +63,67 @@ public abstract class ContaBancaria {
     }
 
     public void extrato() {
-            EntradaDados.show(extratoRetorno());
+        EntradaDados.show(extratoRetorno());
     }
 
-    public void saque(double valor) {
-        if ((this.saldo )  - valor < 0) {
-            EntradaDados.show("Sem saldo disponível....");
-        } else {
-            this.saldo -= valor;
-            EntradaDados.show("Sucesso....");
+    public boolean saque(double valor) throws ControleExcecoes {
+
+        try {
+            if ((this.saldo) - valor >= 0 && valor <= 500) {
+                this.saldo -= valor;
+                EntradaDados.show("Saque realizado com sucesso...., saldo disponível" + getSaldo());
+                extrato();
+                return true;
+            }
+            if (valor >= 500 && (this.saldo) - valor >= 0) {
+                throw new Exception("Saques superiores a 500 reais não são permitidos....");
+            } else {
+                throw new Exception("Sem saldo disponível....");
+            }
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(null,"Deve ser inserido um valor numérico....");
+            throw new ControleExcecoes("Log" , ex);
         }
-        extrato();
-    }
-    public void deposito(double valor) {
-        this.saldo += valor;
-        extrato();
+        catch (Exception ex) {
+            // como tratar a exceção
+            extrato();
+            EntradaDados.show(ex.getMessage());
+            return false;
+        }
+
     }
 
-    public Optional banco(){
+    public boolean deposito(double valor) {
+        try {
+            if (valor <= 1000 && valor >= 0) {
+                this.saldo += valor;
+                extrato();
+                return true;
+            }
+            throw new Exception("O limite de depósito é de 1000 reais....");
+
+        } catch (Exception ex) {
+            EntradaDados.show(ex.getMessage());
+            return false;
+        }
+    }
+
+    public Optional banco() {
         return Optional.empty();
     }
+
     public String extratoRetorno() {
-        if(banco != null){
+        if (banco != null) {
             return "ContaBancaria{" +
                     " banco='" + banco.toString() + '\'' +
                     ",numeroDaConta=" + numeroDaConta +
-                    ", saldo=R$ " + String.format("%.2f",saldo) +
+                    ", saldo=R$ " + String.format("%.2f", saldo) +
                     ", cliente='" + cliente.toString() + '\'' +
                     '}';
-        }else{
+        } else {
             return "ContaBancaria{" +
                     "numeroDaConta=" + numeroDaConta +
-                    ", saldo=R$ " + String.format("%.2f",saldo) +
+                    ", saldo=R$ " + String.format("%.2f", saldo) +
                     ", cliente='" + cliente.toString() + '\'' +
                     '}';
         }

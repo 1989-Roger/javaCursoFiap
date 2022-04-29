@@ -2,8 +2,11 @@ package br.com.ProjetoLogin.beans;
 
 public class Login {
 
-    private String usuario;
-    private String senha;
+    private String usuario = "admin";
+    private String senha = "admin";
+
+    public Login() {
+    }
 
     public Login(String usuario, String senha) {
         this.usuario = usuario;
@@ -26,7 +29,16 @@ public class Login {
         this.senha = senha;
     }
 
-    public boolean fazerLogin(String usuario, String senha){
-        return usuario == this.usuario && senha == this.senha;
+    public boolean fazerLogin(String usuario, String senha) {
+        try {
+            if (usuario.equalsIgnoreCase(this.usuario) && senha.equalsIgnoreCase(this.senha)) {
+                return true;
+            }
+            throw new Exception("log: usuário / senha inválidos - usuario: " + usuario);
+        } catch (Exception ex) {
+            // como tratar a exceção
+            System.out.println(ex.getMessage());
+        }
+        return false;
     }
 }
